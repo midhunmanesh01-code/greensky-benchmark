@@ -1,14 +1,18 @@
+from pathlib import Path
 import pandas as pd
 import numpy as np
 
 from sklearn.ensemble import GradientBoostingRegressor
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = BASE_DIR / "results"
 
 # =========================
 # 1. LOAD EXISTING DATA
 # =========================
 
-data = pd.read_csv("benchmark_results.csv")
+data = pd.read_csv(RESULTS_DIR / "benchmark_results.csv")
 data["time"] = pd.to_datetime(data["time"])
 
 data = data.sort_values("time").reset_index(drop=True)
@@ -285,10 +289,10 @@ print(
 # =========================
 
 test.to_csv(
-    "adaptive_weight_results.csv",
+    RESULTS_DIR / "adaptive_weight_results.csv",
     index=False
 )
 
 print(
-    "\nSaved: adaptive_weight_results.csv"
+    f"\nSaved: {RESULTS_DIR / 'adaptive_weight_results.csv'}"
 )

@@ -1,14 +1,19 @@
+from pathlib import Path
 import pandas as pd
 import requests
 
 from sklearn.ensemble import GradientBoostingRegressor
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+RESULTS_DIR = BASE_DIR / "results"
 
 # =========================
 # 1. LOAD IMD OBSERVATIONS
 # =========================
 
-df = pd.read_csv("imdweb_hMXvt0uE.csv")
+df = pd.read_csv(DATA_DIR / "imdweb_hMXvt0uE.csv")
 df["time"] = pd.to_datetime(df["time"])
 
 lat = 10.75
@@ -292,8 +297,8 @@ for column in [
 # =========================
 
 test.to_csv(
-    "adaptive_benchmark_results.csv",
+    RESULTS_DIR / "adaptive_benchmark_results.csv",
     index=False
 )
 
-print("\nSaved: adaptive_benchmark_results.csv")
+print(f"\nSaved: {RESULTS_DIR / 'adaptive_benchmark_results.csv'}")

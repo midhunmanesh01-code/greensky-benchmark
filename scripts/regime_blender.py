@@ -37,17 +37,22 @@ Test   : 2025-08-04 to 2025-08-31  (28 days, LOCKED)
 """
 
 import sys
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = BASE_DIR / "results"
+
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE  = "corrected_benchmark_results.csv"
-OUTPUT_FILE = "regime_blender_results.csv"
+INPUT_FILE  = RESULTS_DIR / "corrected_benchmark_results.csv"
+OUTPUT_FILE = RESULTS_DIR / "regime_blender_results.csv"
 
 LOCKED_TEST_START = pd.Timestamp("2025-08-04")
 

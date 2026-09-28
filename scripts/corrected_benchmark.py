@@ -60,6 +60,7 @@ in triplets and report the finding.
 """
 
 import sys
+from pathlib import Path
 import requests
 import pandas as pd
 import numpy as np
@@ -67,6 +68,11 @@ from datetime import timedelta
 
 # Ensure UTF-8 output on Windows (avoids cp1252 UnicodeEncodeError)
 sys.stdout.reconfigure(encoding="utf-8")
+
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+RESULTS_DIR = BASE_DIR / "results"
 
 
 # =============================================================================
@@ -109,7 +115,7 @@ print("=" * 60)
 print("CORRECTED BENCHMARK  –  GreenSky Blend SIH26081")
 print("=" * 60)
 
-imd_raw = pd.read_csv("imdweb_hMXvt0uE.csv")
+imd_raw = pd.read_csv(DATA_DIR / "imdweb_hMXvt0uE.csv")
 imd_raw["time"] = pd.to_datetime(imd_raw["time"])
 
 imd = imd_raw[
@@ -331,7 +337,7 @@ merged_corr["equal_blend"] = (merged_corr["ecmwf"] + merged_corr["gfs"]) / 2.0
 merged_corr = merged_corr.dropna(subset=["ecmwf", "gfs"]).reset_index(drop=True)
 
 # --- Old dataset (load from existing benchmark_results.csv for reference) ---
-old_results = pd.read_csv("benchmark_results.csv")
+old_results = pd.read_csv(RESULTS_DIR / "benchmark_results.csv")
 old_results["time"] = pd.to_datetime(old_results["time"])
 old_results = old_results.sort_values("time").reset_index(drop=True)
 
@@ -491,11 +497,11 @@ print_metrics_block(
 
 output_cols = ["time", "rain", "ecmwf", "gfs", "equal_blend"]
 merged_corr[output_cols].to_csv(
-    "corrected_benchmark_results.csv",
+    RESULTS_DIR / "corrected_benchmark_results.csv",
     index=False,
     float_format="%.4f"
 )
-print("\nSaved: corrected_benchmark_results.csv")
+print(f"\nSaved: {RESULTS_DIR / 'corrected_benchmark_results.csv'}")
 
 
 # =============================================================================
@@ -523,12 +529,12 @@ diagnostic = (
 )
 
 diagnostic.to_csv(
-    "corrected_diagnostic.csv",
+    RESULTS_DIR / "corrected_diagnostic.csv",
     index=False,
     float_format="%.4f"
 )
 
-print("Saved: corrected_diagnostic.csv")
+print(f"Saved: {RESULTS_DIR / 'corrected_diagnostic.csv'}")
 
 print("\n" + "=" * 60)
 print("DIAGNOSTIC PREVIEW  (first 10 rows)")

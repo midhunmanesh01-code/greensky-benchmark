@@ -54,17 +54,22 @@ NO TUNING was performed using the new test period.
 """
 
 import sys
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = BASE_DIR / "results"
+
 # =============================================================================
 # CONFIGURATION  (identical to regime_blender.py)
 # =============================================================================
 
-INPUT_FILE  = "corrected_benchmark_results.csv"
-OUTPUT_FILE = "experiment2_results.csv"
+INPUT_FILE  = RESULTS_DIR / "corrected_benchmark_results.csv"
+OUTPUT_FILE = RESULTS_DIR / "experiment2_results.csv"
 
 # Exp-2 chronological boundaries
 EXP2_TRAIN_END  = pd.Timestamp("2025-07-01")   # exclusive (train < this)

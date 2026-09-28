@@ -1,10 +1,15 @@
+from pathlib import Path
 import pandas as pd
+
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
 
 # =========================
 # LOAD IMD DATA
 # =========================
 
-df = pd.read_csv("imdweb_hMXvt0uE.csv")
+df = pd.read_csv(DATA_DIR / "imdweb_hMXvt0uE.csv")
 
 df["time"] = pd.to_datetime(df["time"])
 

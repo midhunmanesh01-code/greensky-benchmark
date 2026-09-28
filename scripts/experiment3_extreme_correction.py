@@ -55,17 +55,22 @@ CSI thresholds: 15.6, 35.0, 64.5 mm/day
 """
 
 import sys
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = BASE_DIR / "results"
+
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE    = "corrected_benchmark_results.csv"
-OUTPUT_FILE   = "experiment3_results.csv"
+INPUT_FILE    = RESULTS_DIR / "corrected_benchmark_results.csv"
+OUTPUT_FILE   = RESULTS_DIR / "experiment3_results.csv"
 
 # Regime weights from Experiment 1 (fixed -- not re-learned here)
 EXP1_WEIGHTS  = {0: 1.00, 1: 1.00, 2: 0.60, 3: 0.45}

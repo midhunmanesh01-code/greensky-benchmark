@@ -58,6 +58,7 @@ Any improvement may not generalize. Overfitting risk is explicitly discussed.
 """
 
 import sys
+from pathlib import Path
 import time
 import requests
 import numpy as np
@@ -69,13 +70,18 @@ from sklearn.inspection import permutation_importance
 
 sys.stdout.reconfigure(encoding="utf-8")
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_DIR = BASE_DIR / "data"
+RESULTS_DIR = BASE_DIR / "results"
+
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
 
-INPUT_FILE   = "corrected_benchmark_results.csv"
-OUTPUT_FILE  = "experiment4_results.csv"
-ATMOS_CACHE  = "experiment4_atmos_cache.csv"  # cached atmospheric data (avoid re-fetching)
+INPUT_FILE   = RESULTS_DIR / "corrected_benchmark_results.csv"
+OUTPUT_FILE  = RESULTS_DIR / "experiment4_results.csv"
+ATMOS_CACHE  = DATA_DIR / "experiment4_atmos_cache.csv"  # cached atmospheric data (avoid re-fetching)
 
 LAT, LON     = 10.75, 76.25
 API_URL      = "https://previous-runs-api.open-meteo.com/v1/forecast"

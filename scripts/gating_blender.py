@@ -1,13 +1,17 @@
+from pathlib import Path
 import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 
+# Directories
+BASE_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = BASE_DIR / "results"
 
 # =========================
 # 1. LOAD DATA
 # =========================
 
-data = pd.read_csv("benchmark_results.csv")
+data = pd.read_csv(RESULTS_DIR / "benchmark_results.csv")
 data["time"] = pd.to_datetime(data["time"])
 
 data = data.sort_values("time").reset_index(drop=True)
@@ -271,10 +275,10 @@ for column in [
 # =========================
 
 test.to_csv(
-    "gating_benchmark_results.csv",
+    RESULTS_DIR / "gating_benchmark_results.csv",
     index=False
 )
 
 print(
-    "\nSaved: gating_benchmark_results.csv"
+    f"\nSaved: {RESULTS_DIR / 'gating_benchmark_results.csv'}"
 )
